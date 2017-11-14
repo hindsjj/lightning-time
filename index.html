@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>GIS Day Lightning Timer</title>
+    <meta http-equiv="Content-Language" content="en-us" >
+    <!-- based on https://github.com/apg/timer and https://github.com/mithro/lightningtimer -->
+    <meta name="author" content="evanwill" >
+    <meta name="keywords" content="timer, lightning talks, GIS Day" >
+    <meta name="description" content="web page based timer for GIS Day 2017 lightning talks">
+
+    <style>
+        body  {
+            text-align: center;
+            font-family: verdana;
+            font-weight: bold;
+        }
+        body.start {
+            font-size: 16vw;
+            color: white;
+            background: black url("images/earth.gif") no-repeat fixed center; 
+        }
+        #countdown {
+            cursor: pointer;
+        }
+        #about {
+            font-size: 18px;
+            position: absolute;
+            bottom: 5%; right: 5%;
+        }
+        body.go {
+            font-size: 35vw;
+            color: white;
+            background: green;
+        }
+        body.caution {
+            font-size: 35vw;
+            color: black;
+            background: yellow;
+        }
+        body.warning {
+            font-size: 35vw;
+            color: black;
+            background: pink;
+        }
+        body.deadline {
+            font-size: 35vw;
+            color: white;
+            background: red; 
+        }
+    </style>
+</head>
+
+<body class="start">
+
+    <span id="countdown">Ready?</span>
+
+    <p id="about"><a href="about.html">About</a></p>
+
+    <audio id="sound" src="sounds/foghorn-daniel_simon.mp3" preload="auto"></audio>
+    <audio id="applause" src="sounds/Audience_Applause-Matthiew11-1206899159.mp3" preload="auto"></audio>
+
+    <script>
+        // Default settings: 5 minutes, caution at 2 minutes, warning at 1 minute
+        var count = 5 * 60;
+        var caution = 2 * 60;
+        var warning = 60;
+        var buzzer = document.getElementById('sound');
+        var clap = document.getElementById('applause');
+        
+        function settime() {
+            // Can optionally set count and warning in the url
+            // e.g. http://www.lightningtimer.net/#30,15 = 30 seconds, warning at 15
+            //      http://www.lightningtimer.net/#300 = 5 minutes, no warning
+            var match = /(\d+),?(\d+)?/.exec(location.hash);
+            if (match && match[1]) {
+                count = parseInt(match[1], 10);
+                caution = -1; // Disable caution
+            }
+            if (match && match[2]) {
+                warning = parseInt(match[2], 10);
+            }
+            if (match && !match[2]) {
+                warning = -1; // Disable warning
+            }
+        }
+        
+        if ("onhashchange" in window) {
+            window.onhashchange = settime;
+        }
+        
+        window.onload = function() {
+            settime();
+        
+            document.getElementById('countdown').onclick = function() {
+                this.onclick = null;
+                countdown();
+            }
+        };
+        
+        function countdown() {
+            if (count > 0) {
+                document.body.className = 'go';
+                document.getElementById('about').style.display = 'none';
+                var obj = document.getElementById("countdown");
+                obj.replaceChild(
+                    document.createTextNode(count.toMinutesAndSeconds()),
+                    obj.firstChild
+                );
+                // document.title = count.toMinutesAndSeconds(); 
+                count--;
+                if (count < caution ) {
+                    document.body.className = 'caution';
+                }
+                if (count < warning) {
+                    document.body.className = 'warning';
+                }
+                window.setTimeout(countdown, 1000);
+            } else {
+                document.body.className = 'deadline';
+                var obj = document.getElementById("countdown");
+                obj.replaceChild(
+                    document.createTextNode(count.toMinutesAndSeconds()),
+                    obj.firstChild
+                );
+                // document.title = count.toMinutesAndSeconds();
+                buzzer.play();
+                clap.play();
+                obj.onclick = function() {
+                    location.reload();
+                };
+            }
+        }
+        Number.prototype.toMinutesAndSeconds = function() {
+            // convert numeric seconds input to minutes and seconds string output
+            var nn, curTime = new Date(this * 1000);
+            return nn = curTime.getMinutes() + ":" + (
+                ((nn = curTime.getSeconds()) < 10) ? "0" + nn : nn
+            );
+        }
+    </script>
+
+</body>
+
+</html>

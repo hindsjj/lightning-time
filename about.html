@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>About GIS Day Lightning Timer</title>
+    <meta http-equiv="Content-Language" content="en-us" >
+    <meta name="author" content="evanwill" >
+    <meta name="keywords" content="timer, lightning talks, GIS Day" >
+    <meta name="description" content="web page based timer for GIS Day 2017 lightning talks">
+
+    <style>
+        body {
+            background: black;
+            font-family: verdana;
+        }
+        .page {
+            background: #cdcdcd;
+            border-radius: 5px;
+            padding: 20px 25px;
+            margin: 5% 35% 5% 5%;
+            font-size: 18px;
+        }
+        #gis-circle {
+            width: 50%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page">
+        <p><a href="index.html">❮ Back</a></p>
+        <p><strong>Use:</strong> click "Ready" to start; at the end click "0:00" to reset. Defaut is 5 minutes with a caution color at 2 minutes and warning color at 1 minute. To customize the time, add "#" with time,warning (for example, one minute with warning at 30 sec: lightning-time/index.html#60,30).</p>
+        <p><strong>About:</strong> Super simple web page based timer with a buzzer for <a href="https://insideidaho.org/gis-day.html" target="_blank">UI GIS Day 2017</a> lightning talks.
+        Inspired by and based on <a href="https://github.com/apg/timer" target="_blank">timer</a> and <a href="https://github.com/mithro/lightningtimer" target="_blank">lightningtimer</a> projects.
+        <a href="https://github.com/evanwill/lightning-time">Get the code</a>.</p>
+        <img id="gis-circle" src="images/gis-day-circle-sticker.png">
+    </div>
+
+</body>
+</html>
