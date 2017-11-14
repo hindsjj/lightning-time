@@ -7,10 +7,10 @@
     
     <title>GIS Day Lightning Timer</title>
     <meta http-equiv="Content-Language" content="en-us" >
-    <!-- based on https://github.com/apg/timer and https://github.com/mithro/lightningtimer -->
     <meta name="author" content="evanwill" >
     <meta name="keywords" content="timer, lightning talks, GIS Day" >
     <meta name="description" content="web page based timer for GIS Day 2017 lightning talks">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 
     <style>
         body  {
@@ -61,10 +61,12 @@
 
     <div id="about"><a href="about.html">About</a></div>
 
+    <!-- load the desired buzzer sounds -->
     <audio id="sound" src="sounds/foghorn-daniel_simon.mp3" preload="auto"></audio>
     <audio id="applause" src="sounds/Audience_Applause-Matthiew11-1206899159.mp3" preload="auto"></audio>
 
     <script>
+        /* based on https://github.com/apg/timer and https://github.com/mithro/lightningtimer */
         // Default settings: 5 minutes, caution at 2 minutes, warning at 1 minute
         var count = 5 * 60;
         var caution = 2 * 60;
@@ -74,8 +76,8 @@
         
         function settime() {
             // Can optionally set count and warning in the url
-            // e.g. http://www.lightningtimer.net/#30,15 = 30 seconds, warning at 15
-            //      http://www.lightningtimer.net/#300 = 5 minutes, no warning
+            // e.g. https://evanwill.github.io/lightning-time/#30,15 = 30 seconds, warning at 15
+            //      https://evanwill.github.io/lightning-time/#300 = 5 minutes, no warning
             var match = /(\d+),?(\d+)?/.exec(location.hash);
             if (match && match[1]) {
                 count = parseInt(match[1], 10);
