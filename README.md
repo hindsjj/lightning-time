@@ -1,5 +1,7 @@
 # lightning-time
 
+Modified for 2018 UI Drone Summit Lightning Talks.  
+
 A super simple web page based timer with a buzzer for [UI GIS Day 2017](https://insideidaho.org/gis-day.html) lightning talks.
 
 Only works in modern browsers. 
